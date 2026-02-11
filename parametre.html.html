@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paramètres client</title>
+
+<style>
+:root{
+  --bg:#f7ecea;
+  --text:#0f0f0f;
+  --muted:#555;
+  --primary1:#c0392b;
+  --primary2:#922b21;
+  --card:#ffffff;
+  --line:#e2cfc9;
+  --radius:16px;
+  --shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* HEADER */
+header{
+  padding:24px;
+  text-align:center;
+  background:linear-gradient(135deg,var(--primary1),var(--primary2));
+  color:#fff;
+}
+
+/* CONTENEUR */
+.container{
+  max-width:800px;
+  margin:32px auto;
+  padding:0 16px;
+  display:grid;
+  gap:24px;
+}
+
+/* CARTES */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:24px;
+  box-shadow:var(--shadow);
+}
+
+h2{
+  margin:0 0 16px;
+  font-size:18px;
+  color:var(--primary2);
+  border-left:4px solid var(--primary1);
+  padding-left:10px;
+}
+
+/* FORM */
+.row{display:flex;flex-wrap:wrap;gap:16px}
+.field{flex:1 1 220px}
+
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+
+input{
+  width:100%;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#f9fafb;
+}
+
+.mono{font-family:ui-monospace,monospace}
+
+/* BOUTONS */
+.btn{
+  padding:12px 20px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--primary1),var(--primary2));
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.actions{text-align:right;margin-top:16px}
+
+/* ==== IMPRESSION ==== */
+
+.print-header,
+.watermark,
+.signature,
+.qr-zone{display:none}
+
+.print-focus{
+  box-shadow:0 0 0 4px rgba(192,57,43,.35);
+}
+
+@media print{
+
+  body{background:#fff}
+
+  header,
+  section:not(#print-rib){
+    display:none !important;
+  }
+
+  #print-rib{
+    border:2px solid #000;
+    padding-top:120px;
+    position:relative;
+  }
+
+  .print-header{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:2px solid #000;
+    padding-bottom:10px;
+    margin-bottom:24px;
+    font-size:13px;
+  }
+
+  .print-meta{text-align:right}
+
+  input{
+    border:none;
+    background:none;
+  }
+
+  .btn{display:none}
+
+  .watermark{
+    display:flex;
+    position:absolute;
+    inset:0;
+    align-items:center;
+    justify-content:center;
+    font-size:90px;
+    color:rgba(0,0,0,.05);
+    transform:rotate(-25deg);
+    font-weight:800;
+    pointer-events:none;
+  }
+
+  .signature{
+    display:block;
+    margin-top:40px;
+  }
+
+  .sign-box{
+    width:280px;
+    height:80px;
+    border:1px solid #000;
+    margin-top:8px;
+  }
+
+  .qr-zone{
+    display:block;
+    margin-top:20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Paramètres client</h1>
+</header>
+
+<div class="container">
+
+<section class="card">
+<h2>Profil</h2>
+<div class="row">
+<div class="field">
+<label>Nom complet</label>
+<input value="Sarah Mandel">
+</div>
+<div class="field">
+<label>Email</label>
+<input value="sarah40.mandel@gmail.com">
+</div>
+<div class="field">
+<label>Téléphone</label>
+<input value="...">
+</div>
+</div>
+</section>
+
+<!-- ====== RIB ====== -->
+<section class="card" id="print-rib">
+
+<div class="print-header">
+<div>
+<strong>Banque Privée Horizon</strong><br>
+Service Client Premium<br>
+contact@horizon.fr
+</div>
+
+<div class="print-meta">
+Client n° <span id="clientId">9845231</span><br>
+Date : <span id="printDate"></span>
+</div>
+</div>
+
+<h2>Coordonnées bancaires</h2>
+
+<div class="row">
+<div class="field">
+<label>Code banque</label>
+<input class="mono" value="30004">
+</div>
+<div class="field">
+<label>Code guichet</label>
+<input class="mono" value="00123">
+</div>
+<div class="field">
+<label>N° de compte</label>
+<input class="mono" value="00002589654">
+</div>
+<div class="field">
+<label>Clé RIB</label>
+<input class="mono" value="45">
+</div>
+</div>
+
+<div class="row">
+<div class="field">
+<label>IBAN</label>
+<input id="iban" class="mono" value="FR76 3000 4001 2300 0025 8965 445">
+</div>
+<div class="field">
+<label>BIC</label>
+<input id="bic" class="mono" value="BNPAFRPPPXV">
+</div>
+</div>
+
+<div class="qr-zone">
+<canvas id="qrCanvas"></canvas>
+</div>
+
+<div class="watermark">CONFIDENTIEL</div>
+
+<div class="signature">
+<p>Signature & cachet :</p>
+<div class="sign-box"></div>
+</div>
+
+<div class="actions">
+<button class="btn" onclick="printRIB(this)">Imprimer le RIB</button>
+</div>
+
+</section>
+
+<section class="card">
+<h2>Sécurité</h2>
+<div class="row">
+<div class="field">
+<label>Mot de passe</label>
+<input type="password">
+</div>
+<div class="field">
+<label>Carte bancaire</label>
+<input value="Désactivé">
+</div>
+</div>
+<div class="actions">
+<button class="btn">Mettre à jour</button>
+</div>
+</section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+<script>
+function printRIB(btn){
+
+  document.getElementById("printDate").innerText =
+    new Date().toLocaleDateString("fr-FR");
+
+  if(!confirm("Voulez-vous vraiment imprimer ces coordonnées bancaires ?")){
+    return;
+  }
+
+  btn.innerText="Préparation...";
+  btn.disabled=true;
+
+  const rib=document.getElementById("print-rib");
+  rib.classList.add("print-focus");
+
+  setTimeout(()=>{
+    window.print();
+    rib.classList.remove("print-focus");
+    btn.innerText="Imprimer le RIB";
+    btn.disabled=false;
+  },300);
+}
+
+/* QR CODE */
+const data=`IBAN: FR76 3000 4001 2300 0025 8965 445
+BIC: BNPAFRPPPXV
+Nom: Caillonneau Nicole`;
+
+QRCode.toCanvas(
+  document.getElementById("qrCanvas"),
+  data,
+  {width:120}
+);
+</script>
+
+</body>
+</html>
