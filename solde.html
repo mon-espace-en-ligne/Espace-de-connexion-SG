@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Compte Bancaire</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* BANNIÈRE AU-DESSUS DE L’HISTORIQUE */
+.banner-container {
+  background-color: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  width: 90%;
+  max-width: 400px;
+  padding: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.banner-image {
+  width: 100%;
+  max-height: 180px;        /* ajuste si besoin : 160–220px */
+  object-fit: contain;     /* TRÈS IMPORTANT */
+  border-radius: 14px;
+  display: block;
+  background-color: #fff;  /* évite le vide visuel */
+}
+
+/* BOUTON IMAGE */
+.image-button {
+  margin-top: 12px;
+  width: 100%;
+  height: 55px;
+  border-radius: 14px;
+  border: none;
+  background-color: var(--black-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.image-button img {
+  height: 32px;
+}
+
+.image-button:hover {
+  background-color: var(--red-main);
+  transform: scale(1.02);
+}
+:root {
+  --red-dark: #8b0000;
+  --red-main: #c1121f;
+  --red-soft: #fdeaea;
+
+  --black-main: #0f0f0f;
+  --black-soft: #2b2b2b;
+
+  --white: #ffffff;
+  --gray-soft: #f4f4f4;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--gray-soft);
+  margin: 0;
+  padding: 0;
+  color: var(--black-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.settings-btn {
+    position: fixed;
+    top: 100px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background-image: url('parametre.gif'); /* ton gif */
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.settings-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%; /* caché par défaut */
+    width: 80%;
+    max-width: 400px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    transition: left 0.4s ease;
+    z-index: 1000;
+}
+
+/* Quand le menu est ouvert */
+.sidebar.open {
+    left: 0;
+}
+
+/* Contenu du menu */
+.sidebar iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* HEADER */
+.header {
+  width: 100%;
+  background-color: var(--white);
+  color: var(--black-main);
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.notification-icon {
+  position: absolute;
+  top: 15px;
+  left: 30px;
+  width: 25px;
+  cursor: pointer;
+}
+
+.logo {
+  width: 120px;
+  margin: 10px 0;
+}
+
+.logout-text {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: var(--red-main);
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.logout-text:hover {
+  text-decoration: underline;
+  color: var(--red-dark);
+}
+
+/* MESSAGE ALERTE */
+.message {
+  background-color: var(--red-soft);
+  color: var(--red-dark);
+  border: 1px solid var(--red-main);
+  padding: 12px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  font-weight: bold;
+  margin: 15px 0;
+  animation: fadeIn 0.6s ease;
+}
+
+/* CONTAINERS */
+.container {
+  background-color: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* SOLDES */
+.balance {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.solde-gradient {
+  background: linear-gradient(90deg, var(--red-main), var(--black-main));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* CARTES */
+.card {
+  background-color: rgba(193,18,31,0.06);
+  border-left: 4px solid var(--red-main);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.card h4 {
+  color: var(--black-main);
+  margin: 0;
+}
+
+.card p {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--red-dark);
+  margin-top: 6px;
+}
+
+/* TRANSACTIONS */
+.info {
+  background-color: var(--gray-soft);
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 12px;
+  text-align: left;
+}
+
+.debit { color: var(--red-main); font-weight: bold; }
+.credit { color: var(--black-main); font-weight: bold; }
+
+.hidden-transactions {
+  display: none;
+}
+
+.toggle-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: var(--black-main);
+  color: var(--white);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.toggle-btn:hover {
+  background-color: var(--red-main);
+}
+
+/* BOUTONS RONDS */
+.button-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 999;
+}
+
+.round-button {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.round-button-1 { background-image: url('illustration_carte.gif'); }
+.round-button-2 { background-image: url('illustration_transfert_argent.gif'); }
+
+/* FOOTER */
+footer {
+  width: 100%;
+  background-color: var(--black-main);
+  color: var(--white);
+  padding: 15px;
+  text-align: center;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* CLIGNOTEMENT MESSAGE COMPTE BLOQUÉ */
+.blink {
+  animation: blinkAlert 1s infinite;
+}
+
+@keyframes blinkAlert {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+/*  SOLDE  */
+.solde-container {
+  background-color: #f8eded;
+  border-radius: 16px;
+  padding: 30px 20px;
+  box-shadow: 0 6px 20px rgba(193,18,31,0.15);
+}
+
+.solde-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--red-dark);
+}
+
+.solde-amount {
+  display: block;
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--red-main);
+  margin-top: 12px;
+}
+
+.solde-label {
+  font-size: 14px;
+  color: #7a3b3b;
+  margin-top: 6px;
+  display: block;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <img src="notification.png" class="notification-icon" onclick="location.href='notification.html'">
+  <img src="logo.png" class="logo">
+  <h1>Heureux de vous revoir !</h1>
+ <span class="logout-text" onclick="logout()">Déconnexion</span>
+</header>
+
+<div class="message blink">Votre compte est actuellement bloqué.</div>
+<div class="container solde-container">
+  <h2 class="solde-title">Solde</h2>
+
+  <div class="solde-box">
+    <span class="solde-amount">1,323,450 €</span>
+
+  </div>
+</div>
+
+<div class="banner-container">
+    <h2 class="section-title">SG Investissements</h2>
+<img src="investissement.png" class="banner-image" alt="Bannière promotionnelle">
+
+  <button class="image-button" onclick="location.href='investissement.html'">
+    <img src="clic.png" alt="Bouton action">
+  </button>
+</div>
+<div class="container">
+  <h2>Historique des transactions</h2>
+
+  <div class="info"><h4>15-04-2023</h4><p class="debit">Retrait ATM -400 €</p></div>
+  <div class="info"><h4>13-04-2023</h4><p class="credit">Reçu +2100 €</p></div>
+
+<div class="hidden-transactions" id="transactionList">
+  <div class="info"><h4>01-04-2023</h4><p class="credit">Reçu +700 €</p></div>
+  <div class="info"><h4>01-04-2023</h4><p class="debit">Virement -91 €</p></div>
+
+  <div class="info"><h4>30-03-2023</h4><p class="debit">Achat CB -55 €</p></div>
+  <div class="info"><h4>28-03-2023</h4><p class="credit">Salaire +2 450 €</p></div>
+  <div class="info"><h4>25-03-2023</h4><p class="debit">Abonnement -12 €</p></div>
+  <div class="info"><h4>22-03-2023</h4><p class="debit">Amazon -89 €</p></div>
+  <div class="info"><h4>20-03-2023</h4><p class="debit">Essence -70 €</p></div>
+</div>
+  <button class="toggle-btn" onclick="toggleTransactions()">Voir plus</button>
+</div>
+
+<div class="button-container">
+  <a href="ma-carte.html" class="round-button round-button-1"></a>
+  <a href="transférer-de-l’argent.html" class="round-button round-button-2"></a>
+</div>
+
+<footer>
+  <p>Conditions d'utilisation | Politique de confidentialité | Contact</p>
+</footer>
+
+<script>
+function toggleTransactions() {
+  const list = document.getElementById("transactionList");
+  list.style.display = list.style.display === "block" ? "none" : "block";
+}
+
+
+
+function logout() {
+  if (confirm("Voulez-vous vous déconnecter ?")) {
+    location.href = "index.html";
+  }
+}
+
+
+</script>
+
+<!-- Bouton paramètres -->
+<button class="settings-btn" onclick="toggleSidebar()"></button>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <iframe src="paramètres-clients.html"></iframe>
+</div>
+<!-- Bouton paramètres -->
+<button class="settings-btn" onclick="toggleSidebar()"></button>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <iframe src="paramètres-clients.html"></iframe>
+</div>
+
+<script>
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("open");
+}
+</script>
+</body>
+</html>

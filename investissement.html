@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Page indisponible</title>
+
+    <!-- Empêche le zoom automatique -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fceaea;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .alert-box {
+            background-color: #ffffff;
+            border: 1px solid #e5b3b3;
+            border-left: 6px solid #c0392b;
+            padding: 30px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .alert-title {
+            color: #c0392b;
+            font-size: 19px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .alert-message {
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .back-button {
+            background-color: #c0392b;
+            color: #fff;
+            border: none;
+            padding: 12px 22px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background-color: #a93226;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="alert-box">
+        <div class="alert-title">Accès temporairement indisponible !</div>
+
+        <div class="alert-message">
+            Indisponible en raison du statut de votre compte.
+            Veuillez régulariser votre situation afin d’y avoir de nouveau accès. 
+        </div>
+
+        <!-- Bouton retour vers une autre page -->
+        <a href="solde.html" class="back-button">
+              ← Retour
+        </a>
+    </div>
+
+</body>
+</html>

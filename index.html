@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Connexion à mon compte</title>
+
+  <!-- =======================
+       POLICES & ICONES
+  ======================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com/" />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+  <style>
+    /* =======================
+       VARIABLES DE COULEURS
+       Palette rouge pro + fluo
+    ======================== */
+    :root {
+      --red-dark: #8b0000;        /* Rouge profond (institutionnel) */
+      --red-main: #c1121f;        /* Rouge principal */
+      --red-fluo: #ff2e2e;        /* Rouge fluo maîtrisé */
+      --red-soft: #fdeaea;        /* Rouge très clair */
+      --gray-text: #444;
+      --gray-border: #ccc;
+      --white: #ffffff;
+    }
+
+    /* =======================
+       BASE
+    ======================== */
+    body {
+      font-family: 'Dosis', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #fff5f5, #fbeaea);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* =======================
+       NAVBAR
+    ======================== */
+    .navbar {
+      width: 100%;
+      background-color: var(--white);
+      padding: 15px 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar img {
+      max-width: 70px;
+    }
+
+    /* =======================
+       CONTENEUR PRINCIPAL
+    ======================== */
+    .container {
+      margin-top: 40px;
+      width: 90%;
+      max-width: 400px;
+      background-color: var(--white);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(193, 18, 31, 0.18);
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      font-size: 2em;
+      color: var(--red-dark);
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+
+    /* =======================
+       FORMULAIRE
+    ======================== */
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      color: var(--gray-text);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 40px 12px 12px;
+      font-size: 16px;
+      border: 1px solid var(--gray-border);
+      border-radius: 10px;
+      transition: 0.3s ease;
+    }
+
+    /* Focus rouge fluo discret */
+    .form-group input:focus {
+      border-color: var(--red-fluo);
+      box-shadow: 0 0 0 2px rgba(255, 46, 46, 0.15);
+      outline: none;
+    }
+
+    .form-group .material-icons {
+      position: absolute;
+      right: 10px;
+      top: 36px;
+      color: var(--red-main);
+    }
+
+    /* =======================
+       BOUTON CONNEXION
+    ======================== */
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(to right, var(--red-main), var(--red-fluo));
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 18px rgba(255, 46, 46, 0.35);
+    }
+
+    /* =======================
+       ALERTES
+    ======================== */
+    .alert {
+      display: none;
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .alert-success {
+      background-color: #fdeaea;
+      color: #8b0000;
+      border: 1px solid #c1121f;
+    }
+
+    .alert-error {
+      background-color: var(--red-soft);
+      color: var(--red-dark);
+      border: 1px solid var(--red-main);
+    }
+
+    /* =======================
+       INFORMATIONS & LIENS
+    ======================== */
+    .info, .suite {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+      text-align: left;
+    }
+
+    .info a, .suite a {
+      color: var(--red-main);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .info a:hover, .suite a:hover {
+      color: var(--red-fluo);
+    }
+
+    .suite hr {
+      border: none;
+      border-top: 1px solid var(--gray-border);
+      margin: 20px 0;
+    }
+
+    /* =======================
+       ANIMATION
+    ======================== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <img src="logo.png" alt="Logo societe generale ">
+  </div>
+
+  <div class="container">
+    <h1>SOCIETE GENERALE</h1>
+
+    <form>
+      <div class="form-group">
+        <label for="number">1. Email</label>
+        <input type="tel" id="number" class="number" required>
+        <span class="material-icons">person</span>
+      </div>
+
+      <div class="form-group">
+        <label for="pass">2. Mon code secret (8 chiffres)</label>
+        <input type="password" id="pass" class="pass" maxlength="8" required>
+        <span class="material-icons">lock</span>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="valid()">Connexion</button>
+    </form>
+
+    <div class="alert"></div>
+
+    <div class="info">
+      <p><strong>Vos codes d'accès</strong></p>
+      <a href="#">Obtenir ses codes d'accès</a><br>
+      <a href="#">Code secret oublié</a>
+    </div>
+
+    <div class="suite">
+      <hr>
+      <p><strong>Conseils de sécurité</strong></p>
+      <p>Vérifiez que l'adresse commence par <strong>https://</strong></p>
+      <a href="#">Découvrir nos conseils</a>
+    </div>
+  </div>
+
+  <script>
+    /* =======================
+       FONCTION DE VALIDATION
+    ======================== */
+    function valid() {
+      const clientNum = document.querySelector(".number");
+      const secretCode = document.querySelector(".pass");
+      const alertBox = document.querySelector(".alert");
+
+      alertBox.style.display = "none";
+      alertBox.className = "alert";
+
+      // Vérification des champs
+      if (!clientNum.value || !secretCode.value) {
+        alertBox.textContent = "Veuillez remplir tous les champs.";
+        alertBox.classList.add("alert-error");
+      } 
+      // Vérification des identifiants
+      else if (clientNum.value === "2589654" && secretCode.value === "35795863") {
+        alertBox.textContent = "Connexion réussie...";
+        alertBox.classList.add("alert-success");
+
+        setTimeout(() => {
+          window.location.href = "solde.html";
+        }, 2000);
+      } 
+      // Erreur d'accès
+      else {
+        alertBox.textContent = "Accès incorrect. Veuillez réessayer.";
+        alertBox.classList.add("alert-error");
+      }
+
+      alertBox.style.display = "block";
+
+      // Disparition automatique
+      setTimeout(() => {
+        alertBox.style.display = "none";
+      }, 4000);
+    }
+  </script>
+</body>
+</html>

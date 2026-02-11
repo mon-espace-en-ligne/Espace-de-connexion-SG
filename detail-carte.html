@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails de la Carte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .carte {
+            width: 350px;
+            background-color: white;
+            padding: 20px;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .info {
+            margin: 8px 0;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+/* Bouton retour */
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg,#ff2b2b,#b00000);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 15px rgba(255,0,0,0.45);
+    transition: all 0.25s ease;
+}
+
+.back-button:hover {
+    background: linear-gradient(135deg,#000,#222);
+    transform: scale(1.07);
+}
+.button-container {
+    text-align: center;
+    margin-top: 25px;
+}
+    </style>
+</head>
+<body>
+
+<div class="carte">
+    <h2>Détails de la Carte Bancaire</h2>
+
+    <div class="info"><span class="label">Nom :</span> Mandel</div>
+    <div class="info"><span class="label">Prénom :</span> Sarah</div>
+    <div class="info"><span class="label">Mail :</span> sarah40.mandel@gmail.com</div>
+    <div class="info"><span class="label">Numéro :</span> +225 01 71 889 086</div>
+    <div class="info"><span class="label">Solde :</span> 1,3 millions €</div>
+    <div class="info"><span class="label">Banque :</span> Société Général (SH)</div>
+
+    <!-- Bouton centré -->
+    <div class="button-container">
+        <a href="solde.html" class="back-button">Retour</a>
+    </div>
+</div>
